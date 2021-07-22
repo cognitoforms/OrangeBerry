@@ -19,8 +19,11 @@ var interval = setInterval(function(){
 function init() {            
     this.OrangeBerry.Cognito.init();    
 
-    window.addEventListener("message", function(event) {                         
-        if(!event.origin.match(/https?:\/\/services.cognitoforms.com/g) || event.data.by != "OrangeBerry"){            
+    window.addEventListener("message", function(event) {  
+        // http || https
+        // www || no www
+        // cognitoforms.com || x.cognitoforms.com 
+        if(!event.origin.match(/https?:\/\/(www.)?(([A-z0-9])+\.)?cognitoforms.com/) || event.data.by != "OrangeBerry"){            
             return;
         }
 
@@ -72,7 +75,7 @@ function init() {
             console.log(message.msg);
             if (message.msg !== "goto") 
                 return;
-                        
+                
             if(message.data.uuid && message.data.index)
             {
                 OrangeBerry.Cognito.focusUuid(message.data.uuid);

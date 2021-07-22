@@ -132,9 +132,8 @@ function validate(selector, force)
 // ------------------ ------------- -------------------
 
 // ------------------ EVENTS -------------------
-chrome.runtime.onMessage.addListener((message, sender, request) => {    
-    
-    if(message.msg !== "validationComplete")
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {    
+    if(request.msg !== "validationComplete")
         return;
 
     if(request.data) {
